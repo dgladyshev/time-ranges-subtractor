@@ -19,3 +19,82 @@ Your solution shouldn’t rely on the granularity of the timestamps (so don’t,
 3. Input may or may not contain overlapping ranges (e.g. A = {09:30-09:45, 09:15-10:00}). Such ranges are merged.
 4. Input may or may not contain empty ranges (e.g., from 09:30 till 09:30 of the same day). Such ranges are filtered.
 5. Input may or may not contain negative ranges (e.g, from 12:00 till 11:00 of the same day). Such ranges are filtered. 
+
+## How to build and run
+
+You need JDK 11 installed to build the code. 
+
+### Local build with JDK
+
+Run `./gradlew build` to build the uber-jar
+
+Run `java -jar -Dserver.port=8080 build/libs/time-ranges-subtractor-0.0.1-SNAPSHOT.jar` to start the application. 
+
+Open `http://localhost:8080/swagger-ui.html`
+
+You can change the port option (e.g. `-Dserver.port=8081` will make an app accessible for you on port 8081)
+
+### Local build with Docker
+
+Run `./gradlew build docker` to build the image
+
+Run `docker run -p 8080:8080 -t dgladyshev/time-ranges-subtractor`
+
+Open `http://localhost:8080/swagger-ui.html`
+
+You can change the port option (e.g. `8081:8080` will make an app accessible for you on port 8081)
+
+## How to run without build
+
+### Pre-existing Docker image
+
+You can skip the build part and use the latest image I've pushed to the Docker Hub :rocket
+
+Simply run `docker run -p 8080:8080 -t dgladyshev/time-ranges-subtractor` and it will pull and run the image for you.
+
+## How to test 
+
+### Swagger UI
+
+Once application is running you can send POST requests to http://localhost:8080/subtract endpoint (port might be different if you changed it) with the payload as such: 
+
+``` js
+{
+  "a": [
+    {
+      "start": "2019-02-11T10:00:00.000Z",
+      "end": "2019-02-11T10:15:00.000Z"
+    }
+  ],
+  "b": [
+    {
+      "start": "2019-02-11T10:10:00.000Z",
+      "end": "2019-02-11T10:20:00.000Z"
+    },
+    {
+      "start": "2019-02-11T12:00:00Z",
+      "end": "2019-02-11T12:20:00Z"
+    }
+  ]
+}
+```
+
+Note that the dates should be submitted in ISO-8601 format and that only "yyyy-mm-ddThh:mm:ss[.mmm]Z" is supported (UTC time). 
+
+### cURL
+
+You can send HTTP request directly using cURL, example
+
+```
+curl -X POST "http://localhost:8080/subtract" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"a\": [ { \"start\": \"2019-02-11T10:00:00.000Z\", \"end\": \"2019-02-11T10:15:00.000Z\" } ], \"b\": [ { \"start\": \"2019-02-11T10:10:00.000Z\", \"end\": \"2019-02-11T10:20:00.000Z\" } ]}"
+```
+
+### Unit Tests
+
+Following test cases were implemented: 
+
+![Screenshot](tests_screenshot.png)
+
+To run those test cases automatically execute `./gradlew test`
+
+And then open `build/reports/tests/test/index.html` in any browser to see the report

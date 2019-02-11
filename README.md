@@ -8,10 +8,13 @@ A time range has a start time and an end time. You can define times and time ran
 Your solution shouldn’t rely on the granularity of the timestamps (so don’t, for example, iterate over all the times in all the ranges and check to see if that time is “in”).
 
 ## Algorithm phases:
+You can check the algorithm code directly [here](https://github.com/dgladyshev/time-ranges-subtractor/blob/master/src/main/java/pro/gladyshev/timerangessubtractor/util/RangeSubtraction.java)
+
 1. Sorting of A and B
 2. Merging of overlapping ranges withing A and B
 3. Filtering of empty and negative ranges withing A and B
 4. Subtraction (A-B)
+
 
 ## Assumptions and limitations:
 1. The regular timeline is assumed over "Groundhog Day" one (time is not going in a circle within the same date after midnight). Therefore date **and** time should be provided on the input for time ranges. 

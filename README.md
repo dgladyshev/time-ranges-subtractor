@@ -1,4 +1,4 @@
-#Time Ranges Subtraction
+# Time Ranges Subtraction
 
 ## Coding problem
 Write a program that will subtract one list of time ranges from another. Formally: for two lists of time ranges A and B, a time is in (A-B) if and only if it is part of A and not part of B.
@@ -48,7 +48,7 @@ You can change the port option (e.g. `8081:8080` will make an app accessible for
 
 ### Pre-existing Docker image
 
-You can skip the build part and use the latest image I've pushed to the Docker Hub :rocket
+You can skip the build part and use the latest image I've pushed to the Docker Hub
 
 Simply run `docker run -p 8080:8080 -t dgladyshev/time-ranges-subtractor` and it will pull and run the image for you.
 
@@ -56,7 +56,7 @@ Simply run `docker run -p 8080:8080 -t dgladyshev/time-ranges-subtractor` and it
 
 ### Swagger UI
 
-Once application is running you can send POST requests to http://localhost:8080/subtract endpoint (port might be different if you changed it) with the payload as such: 
+Once the application is running you can send POST requests to http://localhost:8080/subtract endpoint (port might be different if you changed it) with the payload as such: 
 
 ``` js
 {
@@ -97,4 +97,4 @@ Following test cases were implemented:
 
 To run those test cases automatically execute `./gradlew test`
 
-And then open `build/reports/tests/test/index.html` in any browser to see the report
+And then open `build/reports/tests/test/index.html` in any browser to see the report.

@@ -10,7 +10,11 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '2.0'
+    id 'java'
+}
+
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
@@ -24,21 +28,28 @@ repositories {
 
 dependencies {
     implementation(
-            'org.springframework.boot:spring-boot-starter-web'
+            'org.springframework.boot:spring-boot-starter-web',
+            'io.springfox:springfox-swagger2:2.9.2',
+            'io.springfox:springfox-swagger-ui:2.9.2'
     )
     compileOnly(
-            'org.projectlombok:lombok'
+            'org.projectlombok:lombok:1.18.4'
+    )
+    testCompile(
+            'org.junit.jupiter:junit-jupiter-params:5.3.2'
     )
     testImplementation(
-            'org.junit.jupiter:junit-jupiter-api:5.4.0',
+            'org.junit.jupiter:junit-jupiter-api:5.3.2',
             'org.springframework.boot:spring-boot-starter-test'
     )
     testRuntimeOnly(
-            'org.junit.jupiter:junit-jupiter-engine:5.4.0'
+            'org.junit.jupiter:junit-jupiter-engine:5.3.2'
     )
 }
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform() {
+        includeEngines 'junit-jupiter'
+    }
 }
 
